@@ -12,7 +12,7 @@ export function RoleChanger({
   currentRole,
   lang,
 }: {
-  userId: number;
+  userId: string;
   currentRole: string;
   lang: "bn" | "en";
 }) {
