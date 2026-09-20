@@ -97,7 +97,7 @@ export default async function EligibilityRulesPage() {
           title={lang === "bn" ? "সংস্করণসমূহ" : "Rule versions"}
           subtitle={
             active
-              ? `${lang === "bn" ? "সক্রিয় সংস্করণ" : "Active version"}: ${active.version}`
+              ? `${lang === "bn" ? "সক্রিয় সংস্করণ" : "Active version"}: ${active.ruleVersion}`
               : lang === "bn"
                 ? "কোনো সক্রিয় সংস্করণ নেই"
                 : "No active version"

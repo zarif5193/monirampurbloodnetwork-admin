@@ -80,7 +80,7 @@ export default async function RequestDetailPage({
     <div>
       <PageHeader
         title={`${r.patientName} · #${r.id}`}
-        subtitle={`${r.bloodGroup} · ${r.unitsRequired} ${lang === "bn" ? "ইউনিট" : "unit(s)"} · ${r.hospitalName}`}
+          subtitle={`${r.bloodGroup} · ${r.quantityUnits} ${lang === "bn" ? "ইউনিট" : "units"} · ${r.hospital}`}
         breadcrumbs={[
           { label: lang === "bn" ? "ড্যাশবোর্ড" : "Dashboard", href: "/admin" },
           {
@@ -132,7 +132,7 @@ export default async function RequestDetailPage({
                 {r.patientName}
               </DetailRow>
               <DetailRow label={lang === "bn" ? "বয়স" : "Age"}>
-                {r.patientAge ?? "—"}
+                —
               </DetailRow>
               <DetailRow label={lang === "bn" ? "রক্তের গ্রুপ" : "Blood group"}>
                 <BloodGroupTag group={r.bloodGroup} />

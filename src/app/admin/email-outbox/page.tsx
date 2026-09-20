@@ -118,13 +118,13 @@ export default async function EmailOutboxPage({
                       <StatusBadge status={e.status} />
                     </Td>
                     <Td className="max-w-xs truncate text-slate-500">
-                      {e.error ?? "—"}
+                      {e.deliveryError ?? "—"}
                     </Td>
                     <Td className="whitespace-nowrap text-slate-600">
                       {fmtDate(e.createdAt, lang, true)}
                     </Td>
                     <Td className="whitespace-nowrap text-slate-600">
-                      {fmtDate(e.sentAt, lang, true)}
+                      {fmtDate(e.createdAt, lang, true)}
                     </Td>
                   </tr>
                 ))}

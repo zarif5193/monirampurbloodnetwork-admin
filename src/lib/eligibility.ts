@@ -1,8 +1,17 @@
 import { desc, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { eligibilityRules } from "@/db/schema";
+import { donorProfiles, eligibilityRules } from "@/db/schema";
 
 export type EligibilityRule = typeof eligibilityRules.$inferSelect;
+export type EligibilityDonor = Pick<
+  typeof donorProfiles.$inferSelect,
+  | "dateOfBirth"
+  | "weightKg"
+  | "gender"
+  | "lastDonationDate"
+  | "availabilityStatus"
+  | "verificationStatus"
+>;
 
 export async function getActiveRule(): Promise<EligibilityRule | null> {
   const [rule] = await db
@@ -22,14 +31,7 @@ export type EligibilityResult = {
 };
 
 export function evaluateEligibility(
-  donor: {
-    dateOfBirth: string | null;
-    weightKg: number | null;
-    gender: "MALE" | "FEMALE" | "OTHER";
-    lastDonationDate: string | null;
-    availability: string;
-    verificationStatus: string;
-  },
+  donor: EligibilityDonor,
   rule: EligibilityRule | null,
 ): EligibilityResult {
   const reasons: EligibilityResult["reasons"] = [];
@@ -57,7 +59,7 @@ export function evaluateEligibility(
         en: `Age is below the minimum of ${rule.minimumAge} years`,
       });
     }
-    if (age > rule.maximumAge) {
+    if (rule.maximumAge !== null && age > rule.maximumAge) {
       reasons.push({
         bn: `বয়স সর্বোচ্চ ${rule.maximumAge} বছরের বেশি`,
         en: `Age is above the maximum of ${rule.maximumAge} years`,
@@ -72,7 +74,7 @@ export function evaluateEligibility(
 
   if (donor.weightKg === null) {
     reasons.push({ bn: "ওজন দেওয়া নেই", en: "Weight is missing" });
-  } else if (donor.weightKg < rule.minimumWeightKg) {
+  } else if (Number(donor.weightKg) < Number(rule.minimumWeightKg)) {
     reasons.push({
       bn: `ওজন ন্যূনতম ${rule.minimumWeightKg} কেজির কম`,
       en: `Weight is below the minimum of ${rule.minimumWeightKg} kg`,
@@ -99,7 +101,7 @@ export function evaluateEligibility(
     }
   }
 
-  if (donor.availability !== "AVAILABLE") {
+  if (donor.availabilityStatus !== "AVAILABLE") {
     reasons.push({
       bn: "ডোনার বর্তমানে উপলব্ধ নন",
       en: "Donor is currently not available",

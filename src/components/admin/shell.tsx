@@ -10,7 +10,7 @@ import { RoleBadge } from "@/components/admin/ui";
 import { ToastProvider } from "@/components/admin/toast";
 
 type AdminUser = {
-  id: number;
+  id: string;
   name: string;
   email: string;
   role: string;

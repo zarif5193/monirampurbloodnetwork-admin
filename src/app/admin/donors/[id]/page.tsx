@@ -185,7 +185,7 @@ export default async function DonorDetailPage({
                 {donor.weightKg ? `${donor.weightKg} kg` : "—"}
               </DetailRow>
               <DetailRow label={lang === "bn" ? "ফোন" : "Phone"}>
-                {donor.phone ?? user.phone ?? "—"}
+                {donor.phoneNumber ?? user.phone ?? "—"}
               </DetailRow>
               <DetailRow label={lang === "bn" ? "ইমেইল" : "Email"}>
                 <Link
@@ -269,7 +269,7 @@ export default async function DonorDetailPage({
                 {donor.verificationNote ?? "—"}
               </DetailRow>
               <DetailRow label={lang === "bn" ? "উপলব্ধতা" : "Availability"}>
-                <StatusBadge status={donor.availability} />
+                <StatusBadge status={donor.availabilityStatus} />
               </DetailRow>
               <DetailRow label={lang === "bn" ? "ডিরেক্টরি" : "Searchable"}>
                 <StatusBadge status={donor.searchable ? "ACTIVE" : "NOT_AVAILABLE"} />
