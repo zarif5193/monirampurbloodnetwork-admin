@@ -1,0 +1,10 @@
+node_modules/
+.next/
+out/
+dist/
+android/
+.env
+.env.*
+!.env.example
+private-uploads/
+*.log
