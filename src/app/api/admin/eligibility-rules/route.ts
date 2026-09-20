@@ -39,8 +39,8 @@ export async function POST(request: Request) {
       throw validationError("This rule version already exists");
     }
 
-    const minAge = num(body.minimumAge: minAge, "Minimum age", 16, 70);
-    const maxAge = num(body.maximumAge: maxAge, "Maximum age", 17, 100);
+    const minAge = num(body.minimumAge, "Minimum age", 16, 70);
+    const maxAge = num(body.maximumAge, "Maximum age", 17, 100);
     if (maxAge <= minAge) throw validationError("Maximum age must exceed minimum age");
 
     const [created] = await db
