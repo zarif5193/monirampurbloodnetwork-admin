@@ -11,7 +11,9 @@ export type EligibilityDonor = Pick<
   | "lastDonationDate"
   | "availabilityStatus"
   | "verificationStatus"
->;
+> & {
+  gender: "MALE" | "FEMALE" | "OTHER" | "PREFER_NOT_TO_SAY";
+};
 
 export async function getActiveRule(): Promise<EligibilityRule | null> {
   const [rule] = await db
